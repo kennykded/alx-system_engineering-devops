@@ -1,1 +1,1 @@
-School magic
+'Shell basics'
