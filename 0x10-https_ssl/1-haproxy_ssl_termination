@@ -1,0 +1,17 @@
+i        errorfile 502 /etc/haproxy/errors/502.http
+        errorfile 503 /etc/haproxy/errors/503.http
+        errorfile 504 /etc/haproxy/errors/504.http
+#HAproxy for web servers
+frontend web-frontend
+    bind *:80
+    bind *:443 ssl crt /etc/letsencrypt/live/www.kded.tech/fullchain.pem
+    option forwardfor
+    mode http
+    default_backend web-backend
+
+backend web-backend
+    balance roundrobin
+    server 9565-web-01 3.234.246.28:80 check
+    server 6565-web-02 34.229.62.188:80 check
+
+ 
