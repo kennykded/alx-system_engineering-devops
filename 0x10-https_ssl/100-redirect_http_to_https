@@ -1,0 +1,15 @@
+        errorfile 503 /etc/haproxy/errors/503.http
+        errorfile 504 /etc/haproxy/errors/504.http
+#HAproxy for web servers
+frontend web-frontend
+    bind *:80
+    bind *:443 ssl crt /etc/letsencrypt/live/www.kded.tech/fullchain.pem
+    redirect scheme https code 301 if !{ ssl_fc }
+    option forwardfor
+    mode http
+    default_backend web-backend
+
+backend web-backend
+    balance roundrobin
+    server web-server1 3.234.246.28:80 check
+    server web-server2 34.229.62.188:80 check
